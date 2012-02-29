@@ -4,7 +4,7 @@
 	$EXPORT_FILE = $argv[2];
 	$DB_NAME = $argv[3];
 	$PK_INDEX = 0;
-	$TABLE_NAME = str_replace('.sql','',$EXPORT_FILE);
+	$TABLE_NAME = basename($EXPORT_FILE,'.sql');
 	
 	$col_headings = array();
 	$cols = array();
