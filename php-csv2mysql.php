@@ -3,6 +3,7 @@
 	$IMPORT_FILE = $argv[1];
 	$EXPORT_FILE = $argv[2];
 	$DB_NAME = $argv[3];
+	$OPTION = $argv[4];
 	$PK_INDEX = 0;
 	$TABLE_NAME = basename($EXPORT_FILE,'.sql');
 	
@@ -41,7 +42,16 @@
 			fwrite($output,'`'.$col_headings[$i]."` VARCHAR(".$cols[$i]."),\n");
 		}
 	}
-	fwrite($output,"PRIMARY KEY (`$col_headings[$PK_INDEX]`)\n) DEFAULT CHARACTER SET 'utf8';\n\n");
+
+	// Write primary key or not
+	if ($OPTION != "--nopk") {
+		// trim last comma
+		fwrite($output);
+		
+		fwrite($output,"PRIMARY KEY (`$col_headings[$PK_INDEX]`)\n");
+	}
+	// Write character set
+	fwrite($output, ") DEFAULT CHARACTER SET 'utf8';\n\n");
 	// Re-open import file
 	$file = fopen($IMPORT_FILE,'r');
 	$lineNum = 1;
