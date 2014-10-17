@@ -9,7 +9,7 @@ Will automatically ignore columns that contain no data, and will make all column
 ## Instructions 
 1. Replace the mysql connect database and password name the applicaion. 
 
-## To Use
+### To Use
 
 ```bash
 php csv_to_sql.php inputfile.csv outputfile.sql database_name
