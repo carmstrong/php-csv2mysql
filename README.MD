@@ -17,5 +17,5 @@ php csv_to_sql.php inputfile.csv outputfile.sql database_name
 
 ## Optional Commands  
 
-### Disable automatically adding a primary key to first column  
+### Disable automatically primary key to first column  
 --nopk
