@@ -7,9 +7,15 @@ Converts CSV files to .SQL files, with a CREATE TABLE and INSERT statements for 
 Will automatically ignore columns that contain no data, and will make all columns type VARCHAR with a size equal to the length of that column's longest value.
 
 ## Instructions 
-Replace the mysql connect database and password name the applicaion. 
-to use: php csv_to_sql.php inputfile.csv outputfile.sql database_name
+1. Replace the mysql connect database and password name the applicaion. 
 
-## Under development
-optional commands: --nopk  
+## To Use
 
+```bash
+php csv_to_sql.php inputfile.csv outputfile.sql database_name
+```
+
+## Optional Commands  
+
+### Disable automatically adding a primary key to first column  
+--nopk

@@ -39,15 +39,18 @@
 	fwrite($output,"CREATE  TABLE `$DB_NAME`.`$TABLE_NAME` (\n");
 	for($i = 0; $i< $numCols; $i++){
 		if( !$unused_cols[$i] ){
-			fwrite($output,'`'.$col_headings[$i]."` VARCHAR(".$cols[$i]."),\n");
+			if ($i == $numCols-1&&$OPTION == "--nopk") {
+				fwrite($output,'`'.$col_headings[$i]."` VARCHAR(".$cols[$i].")\n");
+				}
+			else {
+				fwrite($output,'`'.$col_headings[$i]."` VARCHAR(".$cols[$i]."),\n");
+				
+			}
 		}
 	}
 
 	// Write primary key or not
 	if ($OPTION != "--nopk") {
-		// trim last comma
-		fwrite($output);
-		
 		fwrite($output,"PRIMARY KEY (`$col_headings[$PK_INDEX]`)\n");
 	}
 	// Write character set
