@@ -3,6 +3,7 @@
 	$IMPORT_FILE = $argv[1];
 	$EXPORT_FILE = $argv[2];
 	$DB_NAME = $argv[3];
+	$OPTION = $argv[4];
 	$PK_INDEX = 0;
 	$TABLE_NAME = basename($EXPORT_FILE,'.sql');
 	
@@ -38,10 +39,22 @@
 	fwrite($output,"CREATE  TABLE `$DB_NAME`.`$TABLE_NAME` (\n");
 	for($i = 0; $i< $numCols; $i++){
 		if( !$unused_cols[$i] ){
-			fwrite($output,'`'.$col_headings[$i]."` VARCHAR(".$cols[$i]."),\n");
+			if ($i == $numCols-1&&$OPTION == "--nopk") {
+				fwrite($output,'`'.$col_headings[$i]."` VARCHAR(".$cols[$i].")\n");
+				}
+			else {
+				fwrite($output,'`'.$col_headings[$i]."` VARCHAR(".$cols[$i]."),\n");
+				
+			}
 		}
 	}
-	fwrite($output,"PRIMARY KEY (`$col_headings[$PK_INDEX]`)\n) DEFAULT CHARACTER SET 'utf8';\n\n");
+
+	// Write primary key or not
+	if ($OPTION != "--nopk") {
+		fwrite($output,"PRIMARY KEY (`$col_headings[$PK_INDEX]`)\n");
+	}
+	// Write character set
+	fwrite($output, ") DEFAULT CHARACTER SET 'utf8';\n\n");
 	// Re-open import file
 	$file = fopen($IMPORT_FILE,'r');
 	$lineNum = 1;
